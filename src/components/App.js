@@ -1,18 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const App = () => {
-  const users = [
-    {
-      name: 'Nikolas',
-      email: 'nikosantis@gmail.com',
-      web: 'nikosantis.com'
-    },
-    {
-      name: 'Blog Bacan',
-      email: 'hola@blogbacan.com',
-      web: 'blogbacan.com'
-    }
-  ]
+  const [ users, setUsers ] = useState(
+    [
+      {
+        name: 'Nikolas',
+        email: 'nikosantis@gmail.com',
+        web: 'nikosantis.com'
+      },
+      {
+        name: 'Blog Bacan',
+        email: 'hola@blogbacan.com',
+        web: 'blogbacan.com'
+      }
+    ]
+  )
+
+  const putRow = () => (
+    users.map(user => (
+      <tr key={user.name}>
+        <td>{user.name}</td>
+        <td>{user.email}</td>
+        <td>{user.web}</td>
+      </tr>
+    ))
+  )
 
   return (
     <div className="margen">
@@ -31,13 +43,9 @@ export const App = () => {
           </tr>
         </thead>
         <tbody>
-          { users.map(user => (
-            <tr>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.web}</td>
-            </tr>
-          ))}
+          {
+            putRow()
+          }
         </tbody>
       </table>
     </div>
