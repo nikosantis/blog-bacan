@@ -1,32 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 export const App = () => {
   const [ users, setUsers ] = useState([] )
 
-  useEffect(() =>
-    setUsers([
-      {
-        name: 'Nikolas',
-        email: 'nikosantis@gmail.com',
-        web: 'nikosantis.com'
-      },
-      {
-        name: 'Blog Bacan',
-        email: 'hola@blogbacan.com',
-        web: 'blogbacan.com'
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get('https://jsonplaceholder.typicode.com/users')
+        setUsers(result.data)
+      } catch (error) {
+        console.log(error)
       }
-    ]),
-    []
-  )
-  const putRow = () => (
-    users.map(user => (
-      <tr key={user.name}>
-        <td>{user.name}</td>
-        <td>{user.email}</td>
-        <td>{user.web}</td>
-      </tr>
-    ))
-  )
+    }
+    fetchData()
+  }, [])
 
   return (
     <div className="margen">
@@ -46,7 +34,13 @@ export const App = () => {
         </thead>
         <tbody>
           {
-            putRow()
+            users.map(user => (
+            <tr key={ user.id }>
+              <td>{ user.name }</td>
+              <td>{ user.email }</td>
+              <td>{ user.website }</td>
+            </tr>
+          ))
           }
         </tbody>
       </table>
