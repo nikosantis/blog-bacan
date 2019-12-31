@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export const App = () => {
-  const [ users, setUsers ] = useState(
-    [
+  const [ users, setUsers ] = useState([] )
+
+  useEffect(() =>
+    setUsers([
       {
         name: 'Nikolas',
         email: 'nikosantis@gmail.com',
@@ -13,9 +15,9 @@ export const App = () => {
         email: 'hola@blogbacan.com',
         web: 'blogbacan.com'
       }
-    ]
+    ]),
+    []
   )
-
   const putRow = () => (
     users.map(user => (
       <tr key={user.name}>
