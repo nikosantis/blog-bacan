@@ -1,17 +1,17 @@
 import React from 'react'
 
 export const App = () => {
-  const ponerFilas = () => [
-    <tr>
-      <td>Nikolas</td>
-      <td>nikosantis@gmail.com</td>
-      <td>nikosantis.com</td>
-    </tr>,
-    <tr>
-      <td>Blog Bacan</td>
-      <td>hola@blogbacan.com</td>
-      <td>blogbacan.com</td>
-    </tr>
+  const users = [
+    {
+      name: 'Nikolas',
+      email: 'nikosantis@gmail.com',
+      web: 'nikosantis.com'
+    },
+    {
+      name: 'Blog Bacan',
+      email: 'hola@blogbacan.com',
+      web: 'blogbacan.com'
+    }
   ]
 
   return (
@@ -31,7 +31,13 @@ export const App = () => {
           </tr>
         </thead>
         <tbody>
-          { ponerFilas() }
+          { users.map(user => (
+            <tr>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.web}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
