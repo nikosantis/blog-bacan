@@ -11,8 +11,10 @@ export const App = () => (
   <BrowserRouter>
     <Menu />
     <Switch>
-      <Route exact path='/' component={Users} />
-      <Route exact path='/tareas' component={Tareas} />
+      <div className='margen'>
+        <Route exact path='/' component={Users} />
+        <Route exact path='/tareas' component={Tareas} />
+      </div>
     </Switch>
   </BrowserRouter>
 )
