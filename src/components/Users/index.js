@@ -2,20 +2,26 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 
+import * as usersActions from '../../actions/usersActions'
+
 const Users = (props) => {
-  const [ users, setUsers ] = useState([] )
+  // const [ users, setUsers ] = useState([] )
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const result = await axios.get('https://jsonplaceholder.typicode.com/users')
+  //       setUsers(result.data)
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  //   fetchData()
+  // }, [])
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await axios.get('https://jsonplaceholder.typicode.com/users')
-        setUsers(result.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-  }, [])
+    props.getAll()
+  }, [props])
 
   const renderRows = () => (
     props.users.map(user => (
@@ -29,6 +35,7 @@ const Users = (props) => {
 
   return (
     <div>
+    {console.log(props)}
       <table className="tabla">
         <thead>
           <tr>
@@ -57,4 +64,4 @@ const mapStateToProps = (reducers) => {
   return reducers.usersReducer
 }
 
-export default connect(mapStateToProps, {/*Actions*/})(Users)
+export default connect(mapStateToProps, usersActions)(Users)
