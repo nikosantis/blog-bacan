@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { connect } from 'react-redux'
 
-export const Users = () => {
+const Users = (props) => {
   const [ users, setUsers ] = useState([] )
 
   useEffect(() => {
@@ -15,6 +16,16 @@ export const Users = () => {
     }
     fetchData()
   }, [])
+
+  const renderRows = () => (
+    props.users.map(user => (
+      <tr key={ user.id }>
+        <td>{ user.name }</td>
+        <td>{ user.email }</td>
+        <td>{ user.website }</td>
+      </tr>
+    ))
+  )
 
   return (
     <div>
@@ -34,16 +45,16 @@ export const Users = () => {
         </thead>
         <tbody>
           {
-            users.map(user => (
-            <tr key={ user.id }>
-              <td>{ user.name }</td>
-              <td>{ user.email }</td>
-              <td>{ user.website }</td>
-            </tr>
-          ))
+            renderRows()
           }
         </tbody>
       </table>
     </div>
   )
 }
+
+const mapStateToProps = (reducers) => {
+  return reducers.usersReducer
+}
+
+export default connect(mapStateToProps, {/*Actions*/})(Users)
