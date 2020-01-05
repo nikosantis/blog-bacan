@@ -1,3 +1,6 @@
 export const UPDATED = 'updated_posts'
 export const LOADING = 'loading_posts'
 export const ERROR = 'error_posts'
+export const LOADING_COM = 'loading_comments'
+export const ERROR_COM = 'error_comments'
+export const UPDATED_COM = 'updated_comments'

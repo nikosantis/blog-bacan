@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { UPDATED, LOADING, ERROR } from '../types/postsTypes'
+import { UPDATED, LOADING, ERROR, UPDATED_COM, LOADING_COM, ERROR_COM } from '../types/postsTypes'
 import * as usersTypes from '../types/usersTypes'
 
 const { GET_ALL: GET_ALL_USERS } = usersTypes
@@ -75,25 +75,37 @@ export const openClose = (key_post, key_com) => (dispatch, getState) => {
 }
 
 export const getComments = (key_post, key_com) => async (dispatch, getState) => {
+  dispatch({
+    type: LOADING_COM
+  })
+
   const { posts } = getState().postsReducer
   const selected = posts[key_post][key_com]
 
-  const fetchComments = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${selected.id}`)
+  try {
+    const fetchComments = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${selected.id}`)
 
-  const updated = {
-    ...selected,
-    comments: fetchComments
+    const updated = {
+      ...selected,
+      comments: fetchComments.data
+    }
+
+    const updated_posts = [...posts]
+
+    updated_posts[key_post] = [
+      ...posts[key_post]
+    ]
+    updated_posts[key_post][key_com] = updated
+
+    dispatch({
+      type: UPDATED_COM,
+      payload: updated_posts
+    })
+  } catch (error) {
+    console.log(error.message)
+    dispatch({
+      type: ERROR_COM,
+      payload: 'Comentarios no disponibles'
+    })
   }
-
-  const updated_posts = [...posts]
-
-  updated_posts[key_post] = [
-    ...posts[key_post]
-  ]
-  updated_posts[key_post][key_com] = updated
-
-  dispatch({
-    type: UPDATED,
-    payload: updated_posts
-  })
 }
