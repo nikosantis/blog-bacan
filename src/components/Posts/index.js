@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Loading } from '../General/Loading'
 import { Fatal } from '../General/Fatal'
+import Comments from './Comments'
 
 import * as usersActions from '../../actions/usersActions'
 import * as postsActions from '../../actions/postsActions'
@@ -9,7 +10,8 @@ import * as postsActions from '../../actions/postsActions'
 const { getAll: getAllUsers } = usersActions
 const {
   getByUser: getAllPostsByUser,
-  openClose
+  openClose,
+  getComments
 } = postsActions
 
 class Posts extends Component {
@@ -90,16 +92,25 @@ class Posts extends Component {
       <div
         key={post.id}
         className='post_title'
-        onClick={() => this.props.openClose(key_post, key_com)}
+        onClick={
+          () => this.showComments(key_post, key_com, post.comments)
+        }
       >
         <h2>{post.title}</h2>
         <h3>{post.body}</h3>
         {
-          (post.open) ? 'open' : 'close'
+          (post.open) ? <Comments /> : ''
         }
       </div>
     ))
   )
+
+  showComments = (key_post, key_com, comments) => {
+    this.props.openClose(key_post, key_com)
+    if (!comments.length) {
+      this.props.getComments(key_post, key_com)
+    }
+  }
 
   render() {
     console.log(this.props)
@@ -122,7 +133,8 @@ const mapStateToProps = ({ usersReducer, postsReducer }) => {
 const mapDispatchToProps = {
   getAllUsers,
   getAllPostsByUser,
-  openClose
+  openClose,
+  getComments
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts)
