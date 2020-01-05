@@ -1,10 +1,12 @@
+import { GET_ALL } from '../types/usersTypes'
+
 const INITIAL_STATE = {
-  users: [1, 2, 3]
+  users: []
 }
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'get_users':
+    case GET_ALL:
       return { ...state, users: action.payload }
 
       default: return state
