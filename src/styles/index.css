@@ -35,3 +35,7 @@ body {
 .red {
   color: red;
 }
+
+.post_title {
+  border-top: 1px solid black;
+}

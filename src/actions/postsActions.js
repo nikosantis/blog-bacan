@@ -1,34 +1,35 @@
 import axios from 'axios'
-import { GET_ALL, LOADING, ERROR } from '../types/postsTypes'
+import { GET_BY_USER, LOADING, ERROR } from '../types/postsTypes'
+import * as usersTypes from '../types/usersTypes'
 
-export const getAll = () => async dispatch => {
-  dispatch({
-    type: LOADING
-  })
-
-  try {
-    const result = await axios.get('https://jsonplaceholder.typicode.com/posts')
-    dispatch({
-      type: GET_ALL,
-      payload: result.data
-    })
-  } catch (error) {
-    console.log('Error', error.message)
-    dispatch({
-      type: ERROR,
-      payload: 'Algo salió mal, intente más tarde'
-    })
-  }
-}
+const { GET_ALL: GET_ALL_USERS } = usersTypes
 
 export const getByUser = key => async (dispatch, getState) => {
   const { users } = getState().usersReducer
-  console.log(users)
+  const { posts } = getState().postsReducer
   const user_id = users[key].id
 
-  const result = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`)
+  const fetchPosts = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`)
+
+  const uptated_posts = [
+    ...posts,
+    fetchPosts.data
+  ]
+
+  const key_posts = uptated_posts.length - 1
+  const updated_users = [...users]
+  updated_users[key] = {
+    ...users[key],
+    key_posts
+  }
+
   dispatch({
-    type: GET_ALL,
-    payload: result.data
+    type: GET_ALL_USERS,
+    payload: updated_users
+  })
+
+  dispatch({
+    type: GET_BY_USER,
+    payload: uptated_posts
   })
 }
