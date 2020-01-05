@@ -77,7 +77,11 @@ class Posts extends Component {
     const { key_posts } = users[key]
 
     return posts[key_posts].map(post => (
-      <div key={post.id} className='post_title'>
+      <div
+        key={post.id}
+        className='post_title'
+        onClick={() => alert(post.id)}
+      >
         <h2>{post.title}</h2>
         <h3>{post.body}</h3>
       </div>
