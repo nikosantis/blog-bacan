@@ -1,7 +1,7 @@
-import { GET_ALL, LOADING, ERROR } from '../types/usersTypes'
+import { GET_ALL, LOADING, ERROR } from '../types/postsTypes'
 
 const INITIAL_STATE = {
-  users: [],
+  posts: [],
   loading: false,
   error: ''
 }
@@ -11,7 +11,7 @@ export default (state = INITIAL_STATE, action) => {
     case GET_ALL:
       return {
         ...state,
-        users: action.payload,
+        posts: action.payload,
         loading: false,
         error: ''
       }

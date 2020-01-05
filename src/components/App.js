@@ -8,7 +8,7 @@ const Tareas = () => (
   <div>Tareas</div>
 )
 
-export const App = () => (
+export const App = props => (
   <BrowserRouter>
     <Menu />
     <Switch>
