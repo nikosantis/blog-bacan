@@ -4,6 +4,7 @@ import { Menu } from './Menu'
 import Users from './Users'
 import Posts from './Posts'
 import Tasks from './Tasks'
+import SaveTasks from './Tasks/Save'
 
 export const App = props => (
   <BrowserRouter>
@@ -14,6 +15,7 @@ export const App = props => (
           <Route exact path='/' component={Users} />
           <Route exact path='/tareas' component={Tasks} />
           <Route exact path='/posts/:key' component={Posts} />
+          <Route exact path='/tasks/save' component={SaveTasks} />
         </div>
       </>
     </Switch>

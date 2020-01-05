@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+
 import { Loading } from '../General/Loading'
 import { Fatal } from '../General/Fatal'
 
@@ -49,9 +51,13 @@ class Tasks extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
-      <div>{ this.showContent() }</div>
+      <div>
+        <button>
+          <Link to='/tasks/save'>Agregar</Link>
+        </button>
+        { this.showContent() }
+      </div>
     )
   }
 }
