@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_BY_USER, LOADING, ERROR } from '../types/postsTypes'
+import { UPDATED, LOADING, ERROR } from '../types/postsTypes'
 import * as usersTypes from '../types/usersTypes'
 
 const { GET_ALL: GET_ALL_USERS } = usersTypes
@@ -16,13 +16,19 @@ export const getByUser = key => async (dispatch, getState) => {
   try {
     const fetchPosts = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`)
 
+    const news = fetchPosts.data.map(post => ({
+      ...post,
+      comments: [],
+      open: false
+    }))
+
     const uptated_posts = [
       ...posts,
-      fetchPosts.data
+      news
     ]
 
     dispatch({
-      type: GET_BY_USER,
+      type: UPDATED,
       payload: uptated_posts
     })
 
@@ -44,4 +50,26 @@ export const getByUser = key => async (dispatch, getState) => {
       payload: 'Posts no disponibles'
     })
   }
+}
+
+export const openClose = (key_post, key_com) => (dispatch, getState) => {
+  const { posts } = getState().postsReducer
+  const selected = posts[key_post][key_com]
+
+  const updated = {
+    ...selected,
+    open: !selected.open
+  }
+
+  const updated_posts = [...posts]
+
+  updated_posts[key_post] = [
+    ...posts[key_post]
+  ]
+  updated_posts[key_post][key_com] = updated
+
+  dispatch({
+    type: UPDATED,
+    payload: updated_posts
+  })
 }
