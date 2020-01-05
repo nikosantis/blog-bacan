@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
+import './styles/icons.css'
 import { App } from './components/App'
 
 import { createStore, applyMiddleware } from 'redux'
