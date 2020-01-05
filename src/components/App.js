@@ -3,10 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { Menu } from './Menu'
 import Users from './Users'
 import Posts from './Posts'
-
-const Tareas = () => (
-  <div>Tareas</div>
-)
+import Tasks from './Tasks'
 
 export const App = props => (
   <BrowserRouter>
@@ -15,7 +12,7 @@ export const App = props => (
       <>
         <div className='margen'>
           <Route exact path='/' component={Users} />
-          <Route exact path='/tareas' component={Tareas} />
+          <Route exact path='/tareas' component={Tasks} />
           <Route exact path='/posts/:key' component={Posts} />
         </div>
       </>
