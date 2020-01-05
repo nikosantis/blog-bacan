@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ALL, LOADING, ERROR } from '../types/tasksTypes'
+import { GET_ALL, LOADING, ERROR, CHANGE_USER_ID, CHANGE_TITLE } from '../types/tasksTypes'
 
 export const getAll = () => async dispatch => {
   dispatch({
@@ -29,4 +29,18 @@ export const getAll = () => async dispatch => {
       payload: 'Información de tareas no disponible'
     })
   }
+}
+
+export const changeUserId = user_id => dispatch => {
+  dispatch({
+    type: CHANGE_USER_ID,
+    payload: user_id
+  })
+}
+
+export const changeTitle = title => dispatch => {
+  dispatch({
+    type: CHANGE_TITLE,
+    payload: title
+  })
 }
