@@ -28,6 +28,12 @@ body {
   padding-right: 50px;
 }
 
+.tasks_container {
+  font-size: 20px;
+  margin-left: 50px;
+  margin-bottom: 70px;
+}
+
 .center {
   text-align: center;
 }
