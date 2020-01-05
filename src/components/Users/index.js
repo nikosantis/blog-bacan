@@ -1,13 +1,45 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Loading } from '../General/Loading'
 
 import * as usersActions from '../../actions/usersActions'
 
 class Users extends Component {
 
-  async componentDidMount() {
+  componentDidMount() {
 		this.props.getAll();
-	}
+  }
+
+  putContent = () => {
+    if (this.props.loading) {
+      return (
+        <Loading/>
+      )
+    }
+
+    return (
+      <table className="tabla">
+        <thead>
+          <tr>
+            <th>
+              Nombre
+            </th>
+            <th>
+              Correo
+            </th>
+            <th>
+              Enlace
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            this.renderRows()
+          }
+        </tbody>
+      </table>
+    )
+  }
 
   renderRows = () => this.props.users.map((user) => (
 		<tr key={ user.id }>
@@ -26,26 +58,9 @@ class Users extends Component {
   render() {
     return (
       <div>
-        <table className="tabla">
-          <thead>
-            <tr>
-              <th>
-                Nombre
-              </th>
-              <th>
-                Correo
-              </th>
-              <th>
-                Enlace
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.renderRows()
-            }
-          </tbody>
-        </table>
+        {
+          this.putContent()
+        }
       </div>
     )
   }
