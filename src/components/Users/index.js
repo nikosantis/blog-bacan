@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Loading } from '../General/Loading'
 import { Fatal } from '../General/Fatal'
+import Table from './Table'
 
 import * as usersActions from '../../actions/usersActions'
 
@@ -25,46 +26,14 @@ class Users extends Component {
     }
 
     return (
-      <table className="tabla">
-        <thead>
-          <tr>
-            <th>
-              Nombre
-            </th>
-            <th>
-              Correo
-            </th>
-            <th>
-              Enlace
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            this.renderRows()
-          }
-        </tbody>
-      </table>
+      <Table />
     )
   }
-
-  renderRows = () => this.props.users.map((user) => (
-		<tr key={ user.id }>
-			<td>
-				{ user.name }
-			</td>
-			<td>
-				{ user.email }
-			</td>
-			<td>
-				{ user.website }
-			</td>
-		</tr>
-	))
 
   render() {
     return (
       <div>
+      <h1 className='center'>Usuarios</h1>
         {
           this.putContent()
         }
@@ -73,7 +42,7 @@ class Users extends Component {
   }
 }
 
-const mapStateToProps = (reducers) => {
+const mapStateToProps = reducers => {
   return reducers.usersReducer
 }
 
