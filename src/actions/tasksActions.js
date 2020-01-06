@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ALL, LOADING, ERROR, CHANGE_USER_ID, CHANGE_TITLE, ADDED } from '../types/tasksTypes'
+import { GET_ALL, LOADING, ERROR, CHANGE_USER_ID, CHANGE_TITLE, SAVE, UPDATE } from '../types/tasksTypes'
 
 export const getAll = () => async dispatch => {
   dispatch({
@@ -54,7 +54,7 @@ export const addTask = newTask => async dispatch => {
     const fetchPost = await axios.post('https://jsonplaceholder.typicode.com/todos', newTask)
     console.log(fetchPost.data)
     dispatch({
-      type: ADDED
+      type: SAVE
     })
   } catch (error) {
     console.log(error.message)
@@ -65,6 +65,43 @@ export const addTask = newTask => async dispatch => {
   }
 }
 
-export const edit = edit_task => dispatch => {
-  console.log(edit_task)
+export const edit = edit_task => async dispatch => {
+  dispatch({
+    type: LOADING
+  })
+
+  try {
+    const fetchPost = await axios.put(`https://jsonplaceholder.typicode.com/todos/${edit_task.id}`, edit_task)
+    console.log(fetchPost.data)
+    dispatch({
+      type: SAVE
+    })
+  } catch (error) {
+    console.log(error.message)
+    dispatch({
+      type: ERROR,
+      payload: 'Intente más tarde'
+    })
+  }
+}
+
+export const changeCheck = (usr_id, tsk_id) => (dispatch, getState) => {
+  const { tasks } = getState().tasksReducer
+  const selected = tasks[usr_id][tsk_id]
+
+  const updateds = {
+    ...tasks,
+  }
+  updateds[usr_id] = {
+    ...tasks[usr_id]
+  }
+  updateds[usr_id][tsk_id] = {
+    ...tasks[usr_id][tsk_id],
+    completed: !selected.completed
+  }
+
+  dispatch({
+    type: UPDATE,
+    payload: updateds
+  })
 }
