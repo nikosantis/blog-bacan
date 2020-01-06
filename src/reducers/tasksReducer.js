@@ -1,4 +1,4 @@
-import { GET_ALL, LOADING, ERROR, CHANGE_USER_ID, CHANGE_TITLE, SAVE, UPDATE } from '../types/tasksTypes'
+import { GET_ALL, LOADING, ERROR, CHANGE_USER_ID, CHANGE_TITLE, SAVE, UPDATE, CLEAN } from '../types/tasksTypes'
 
 const INITIAL_STATE = {
   tasks: [],
@@ -47,6 +47,13 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         tasks: action.payload
+      }
+
+    case CLEAN:
+      return {
+        ...state,
+        user_id: '',
+        title: ''
       }
 
     default: return state

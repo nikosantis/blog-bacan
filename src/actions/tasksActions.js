@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ALL, LOADING, ERROR, CHANGE_USER_ID, CHANGE_TITLE, SAVE, UPDATE } from '../types/tasksTypes'
+import { GET_ALL, LOADING, ERROR, CHANGE_USER_ID, CHANGE_TITLE, SAVE, UPDATE, CLEAN } from '../types/tasksTypes'
 
 export const getAll = () => async dispatch => {
   dispatch({
@@ -52,7 +52,7 @@ export const addTask = newTask => async dispatch => {
 
   try {
     const fetchPost = await axios.post('https://jsonplaceholder.typicode.com/todos', newTask)
-    console.log(fetchPost.data)
+
     dispatch({
       type: SAVE
     })
@@ -72,7 +72,7 @@ export const edit = edit_task => async dispatch => {
 
   try {
     const fetchPost = await axios.put(`https://jsonplaceholder.typicode.com/todos/${edit_task.id}`, edit_task)
-    console.log(fetchPost.data)
+
     dispatch({
       type: SAVE
     })
@@ -113,7 +113,7 @@ export const remove = tsk_id => async dispatch => {
 
   try {
     const result = await axios.delete(`https://jsonplaceholder.typicode.com/todos/${tsk_id}`)
-    console.log(result)
+
     dispatch({
       type: GET_ALL,
       payload: {}
@@ -125,4 +125,10 @@ export const remove = tsk_id => async dispatch => {
       payload: 'El servicio no está disponible'
     })
   }
+}
+
+export const cleanForm = () => dispatch => {
+  dispatch({
+    type: CLEAN
+  })
 }
