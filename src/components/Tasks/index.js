@@ -15,6 +15,12 @@ class Tasks extends Component {
     }
   }
 
+  async componentDidUpdate() {
+    if (!Object.keys(this.props.tasks).length) {
+      this.props.getAll()
+    }
+  }
+
   showContent = () => {
     const { tasks, loading, error } = this.props
 
@@ -37,7 +43,7 @@ class Tasks extends Component {
   }
 
   putTasks = usr_id => {
-    const { tasks, changeCheck } = this.props
+    const { tasks, changeCheck, remove } = this.props
     const by_user = {
       ...tasks[usr_id]
     }
@@ -57,7 +63,10 @@ class Tasks extends Component {
             Editar
           </Link>
         </button>
-        <button className='m_left'>
+        <button
+          className='m_left'
+          onClick={ () => remove(tsk_id) }
+        >
           Eliminar
         </button>
       </div>

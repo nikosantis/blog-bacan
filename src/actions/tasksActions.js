@@ -105,3 +105,24 @@ export const changeCheck = (usr_id, tsk_id) => (dispatch, getState) => {
     payload: updateds
   })
 }
+
+export const remove = tsk_id => async dispatch => {
+  dispatch({
+    type: LOADING
+  })
+
+  try {
+    const result = await axios.delete(`https://jsonplaceholder.typicode.com/todos/${tsk_id}`)
+    console.log(result)
+    dispatch({
+      type: GET_ALL,
+      payload: {}
+    })
+  } catch (error) {
+    console.log(error.message)
+    dispatch({
+      type: ERROR,
+      payload: 'El servicio no está disponible'
+    })
+  }
+}
