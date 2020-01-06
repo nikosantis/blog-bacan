@@ -13,7 +13,7 @@ export const App = props => (
       <>
         <div className='margen'>
           <Route exact path='/' component={Users} />
-          <Route exact path='/tareas' component={Tasks} />
+          <Route exact path='/tasks' component={Tasks} />
           <Route exact path='/posts/:key' component={Posts} />
           <Route exact path='/tasks/save' component={SaveTasks} />
         </div>

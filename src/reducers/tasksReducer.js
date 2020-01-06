@@ -5,7 +5,8 @@ const INITIAL_STATE = {
   loading: false,
   error: '',
   user_id: '',
-  title: ''
+  title: '',
+  back: false
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -15,7 +16,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         tasks: action.payload,
         loading: false,
-        error: ''
+        error: '',
+        back: false
       }
 
     case LOADING:
@@ -31,7 +33,15 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, title: action.payload }
 
     case ADDED:
-      return { ...state, tasks: {}, loading: false, error: '' }
+      return {
+        ...state,
+        tasks: {},
+        loading: false,
+        error: '',
+        back: true,
+        user_id: '',
+        title: ''
+      }
 
     default: return state
   }

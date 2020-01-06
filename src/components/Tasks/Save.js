@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Loading } from '../General/Loading'
+import { Fatal } from '../General/Fatal'
+import { Redirect } from 'react-router-dom'
 
 import * as tasksActions from '../../actions/tasksActions'
 
@@ -22,9 +25,43 @@ class Save extends Component {
     addTask(new_task)
   }
 
+  disable = () => {
+    const {
+      user_id,
+      title,
+      loading
+    } = this.props
+
+    if (loading) {
+      return true
+    }
+
+    if (!user_id || !title) {
+      return true
+    }
+
+    return false
+  }
+
+  showAction = () => {
+    const { error, loading } = this.props
+    if (loading) {
+      return <Loading />
+    }
+
+    if (error) {
+      return <Fatal message={error} />
+    }
+  }
+
   render() {
     return (
       <div>
+        {
+          (this.props.back)
+            ? <Redirect to='/tasks' />
+            : ''
+        }
         <h1>Guardar Tarea</h1>
         Usuario id:
         <input
@@ -43,9 +80,11 @@ class Save extends Component {
         <br/>
         <button
           onClick={ this.save }
+          disabled={ this.disable() }
         >
           Guardar
         </button>
+        { this.showAction() }
       </div>
     )
   }
