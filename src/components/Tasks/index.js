@@ -26,28 +26,36 @@ class Tasks extends Component {
       return <Fatal message={error} />
     }
 
-    return Object.keys(tasks).map(user_id => (
-      <div key={user_id}>
-        <h2>Usuario {user_id}</h2>
+    return Object.keys(tasks).map(usr_id => (
+      <div key={usr_id}>
+        <h2>Usuario {usr_id}</h2>
         <div className='tasks_container'>
-          { this.putTasks(user_id) }
+          { this.putTasks(usr_id) }
         </div>
       </div>
     ))
   }
 
-  putTasks = user_id => {
+  putTasks = usr_id => {
     const { tasks } = this.props
     const by_user = {
-      ...tasks[user_id]
+      ...tasks[usr_id]
     }
 
-    return Object.keys(by_user).map(tsk_id => (
+    return Object.keys(by_user).map((tsk_id) => (
       <div key={tsk_id}>
         <input type='checkbox' defaultChecked={by_user[tsk_id].completed} />
         {
           by_user[tsk_id].title
         }
+        <button className='m_left'>
+          <Link to={`/tasks/save/${usr_id}/${tsk_id}`} >
+            Editar
+          </Link>
+        </button>
+        <button className='m_left'>
+          Eliminar
+        </button>
       </div>
     ))
   }

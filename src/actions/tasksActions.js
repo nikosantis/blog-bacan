@@ -64,3 +64,7 @@ export const addTask = newTask => async dispatch => {
     })
   }
 }
+
+export const edit = edit_task => dispatch => {
+  console.log(edit_task)
+}

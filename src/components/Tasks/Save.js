@@ -7,6 +7,21 @@ import { Redirect } from 'react-router-dom'
 import * as tasksActions from '../../actions/tasksActions'
 
 class Save extends Component {
+  componentDidMount() {
+    const {
+      match: { params: { usr_id, tsk_id } },
+      tasks,
+      changeUserId,
+      changeTitle
+    } = this.props
+
+    if (usr_id && tsk_id) {
+      const task = tasks[usr_id][tsk_id]
+      changeUserId(task.userId)
+      changeTitle(task.title)
+    }
+  }
+
   changeUserId = event => {
     this.props.changeUserId(event.target.value)
   }
@@ -16,13 +31,32 @@ class Save extends Component {
   }
 
   save = () => {
-    const { user_id, title, addTask } = this.props
+    const {
+      match: { params: { usr_id, tsk_id } },
+      tasks,
+      user_id,
+      title,
+      addTask,
+      edit
+    } = this.props
+
     const new_task = {
       userId: user_id,
       title: title,
       comleted: false
     }
-    addTask(new_task)
+
+    if (usr_id && tsk_id) {
+      const task = tasks[usr_id][tsk_id]
+      const edit_task = {
+        ...new_task,
+        completed: task.completed,
+        id: task.id
+      }
+      edit(edit_task)
+    } else {
+      addTask(new_task)
+    }
   }
 
   disable = () => {

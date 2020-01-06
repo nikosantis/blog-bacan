@@ -16,6 +16,7 @@ export const App = props => (
           <Route exact path='/tasks' component={Tasks} />
           <Route exact path='/posts/:key' component={Posts} />
           <Route exact path='/tasks/save' component={SaveTasks} />
+          <Route exact path='/tasks/save/:usr_id/:tsk_id' component={SaveTasks} />
         </div>
       </>
     </Switch>
